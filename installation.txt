@@ -1,0 +1,14 @@
+// starting a project:
+
+1: npm init -y
+2: install express
+3: install mongoose
+4: install typescript
+5: install cors
+6: install dot-env
+7: command: tsc -init
+8: Eslint
+9: prettier
+
+
+
