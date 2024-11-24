@@ -6,5 +6,5 @@ export type Product = {
   category: string;
   description: string;
   quantity: number;
-  inStock: 'available' | 'not available';
+  inStock: boolean;
 };

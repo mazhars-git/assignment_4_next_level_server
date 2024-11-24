@@ -15,7 +15,7 @@ const productSchema = new Schema<Product>({
   ],
   description: { type: String, required: true },
   quantity: { type: Number, required: true },
-  inStock: ['available', 'not available'],
+  inStock: { type: Boolean, required: true },
 });
 
 export const ProductModel = model<Product>('Product', productSchema);
