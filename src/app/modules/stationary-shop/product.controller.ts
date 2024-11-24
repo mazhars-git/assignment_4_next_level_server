@@ -5,8 +5,8 @@ import { ProductServices } from './product.service';
 
 const createProduct = async (req: Request, res: Response) => {
   try {
-    const product = req.body;
-    const result = await ProductServices.createProductInBD(product);
+    const { product: productData } = req.body;
+    const result = await ProductServices.createProductInBD(productData);
     res.status(200).json({
       success: true,
       message: 'Product is created successfully',
