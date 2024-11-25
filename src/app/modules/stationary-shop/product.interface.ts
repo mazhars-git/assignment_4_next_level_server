@@ -12,4 +12,6 @@ export type Product = {
   description: string;
   quantity: number;
   inStock: boolean;
+  createdAt?: string;
+  updatedAt?: string;
 };

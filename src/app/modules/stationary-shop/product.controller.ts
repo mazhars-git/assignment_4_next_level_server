@@ -3,7 +3,7 @@ import { ProductServices } from './product.service';
 import productValidationSchema from './product.validation';
 import { error } from 'console';
 
-// create product
+// 01: create product
 const createProduct = async (req: Request, res: Response) => {
   try {
     // data validation
@@ -13,66 +13,68 @@ const createProduct = async (req: Request, res: Response) => {
     const result = await ProductServices.createProductInBD(parseData);
     res.status(200).json({
       success: true,
-      message: 'Product is created successfully',
+      message: 'Product created successfully',
       data: result,
     });
   } catch (err: any) {
     res.status(500).json({
-      success: false,
+      status: false,
       message: err.message || 'something went wrong',
       error: err,
     });
   }
 };
 
-// get all products
+//02: get all products
 
 const getAllProducts = async (req: Request, res: Response) => {
   try {
     const result = await ProductServices.getAllProductsFromDB();
     res.status(200).json({
-      success: true,
-      message: 'Got all data successfully',
+      status: true,
+      message: 'Products retrieved successfully',
       data: result,
     });
   } catch (err: any) {
     res.status(500).json({
-      success: false,
+      status: false,
       message: err.message || 'something went wrong',
       error: err,
     });
   }
 };
 
-// get single product
+// 03: get single product
 
 const getSingleProduct = async (req: Request, res: Response) => {
   try {
     const { productId } = req.params;
     const result = await ProductServices.getSingleProductFromDB(productId);
     res.status(200).json({
-      success: true,
-      message: 'Got single product successfully',
+      status: true,
+      message: 'Product retrieved successfully',
       data: result,
     });
   } catch (err: any) {
     res.status(500).json({
-      success: false,
+      status: false,
       message: err.message || 'something went wrong',
       error: err,
     });
   }
 };
 
-// delete product
+// 04: update product
+
+// 05: delete product
 
 const deleteProduct = async (req: Request, res: Response) => {
   try {
     const { productId } = req.params;
     const result = await ProductServices.deleteProductFromDB(productId);
     res.status(200).json({
-      success: true,
       message: 'product deleted successfully',
+      status: true,
       data: result,
     });
   } catch (err: any) {
@@ -83,6 +85,10 @@ const deleteProduct = async (req: Request, res: Response) => {
     });
   }
 };
+
+// 6: order a product
+
+// 7: calculate revenue from orders
 
 export const ProductControllers = {
   createProduct,

@@ -2,7 +2,7 @@ import { model, Schema } from 'mongoose';
 import { Product } from './stationary-shop/product.interface';
 
 const productSchema = new Schema<Product>({
-  id: { type: String },
+  id: { type: String, unique: true },
   name: { type: String, required: true },
   brand: ['Pilot', 'Moleskine', 'Faber-Castell'],
   price: { type: Number, required: true },
@@ -16,6 +16,8 @@ const productSchema = new Schema<Product>({
   description: { type: String, required: true },
   quantity: { type: Number, required: true },
   inStock: { type: Boolean, required: true },
+  createdAt: { type: Date, default: Date.now() },
+  updatedAt: { type: Date, default: Date.now() },
 });
 
 export const ProductModel = model<Product>('Product', productSchema);
