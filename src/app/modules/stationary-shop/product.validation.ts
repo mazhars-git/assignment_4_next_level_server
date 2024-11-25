@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 const productValidationSchema = z.object({
-  id: z.string().optional(), // Optional field
+  id: z.string().uuid(), // Required field
   name: z.string().nonempty('Name is required'), // Required field
   brand: z.enum(['Pilot', 'Moleskine', 'Faber-Castell']), // Enum of allowed brands
   price: z.number().positive('Price must be a positive number'), // Required positive number
