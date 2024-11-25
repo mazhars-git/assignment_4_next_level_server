@@ -36,4 +36,4 @@ And Finally I created a programme to calculate revenue from orders.
 
 # run this command in vs code: npm run start:dev
 
-# to check error:
+# to check error: npm run lint
