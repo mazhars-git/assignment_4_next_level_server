@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { ProductServices } from './product.service';
 import productValidationSchema from './product.validation';
-import { error } from 'console';
 
 // 01: create product
 const createProduct = async (req: Request, res: Response) => {
@@ -66,6 +65,29 @@ const getSingleProduct = async (req: Request, res: Response) => {
 
 // 04: update product
 
+const updateProduct = async (req: Request, res: Response) => {
+  try {
+    const { productData } = req.body;
+
+    const { productId } = req.params;
+    const result = await ProductServices.updateProductFromDB(
+      productId,
+      productData,
+    );
+    res.status(200).json({
+      status: true,
+      message: 'Product updated successfully',
+      data: result,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: 'something went wrong',
+      error: err,
+    });
+  }
+};
+
 // 05: delete product
 
 const deleteProduct = async (req: Request, res: Response) => {
@@ -86,13 +108,10 @@ const deleteProduct = async (req: Request, res: Response) => {
   }
 };
 
-// 6: order a product
-
-// 7: calculate revenue from orders
-
 export const ProductControllers = {
   createProduct,
   getAllProducts,
   getSingleProduct,
+  updateProduct,
   deleteProduct,
 };
