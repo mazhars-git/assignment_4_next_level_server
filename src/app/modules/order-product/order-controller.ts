@@ -26,14 +26,11 @@ const createOrder = async (req: Request, res: Response) => {
 // Calculate revenue
 
 const revenueCalculate = async () => {
-  const result = await OrderModel.aggregate([
-    {
-      $group: {
-        revenue: { $sum: '$totalPrice' },
-      },
-    },
-  ]);
-  return result;
+  try {
+    const result = await orderService.calculateRevenueFromProducts();
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const OrderController = {
