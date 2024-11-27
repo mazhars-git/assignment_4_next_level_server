@@ -2,7 +2,7 @@ import { ProductModel } from '../product.model';
 import { Product } from './product.interface';
 
 // create product into database
-const createProductInBD = async (product: Product) => {
+const createProductInDB = async (product: Product) => {
   const result = await ProductModel.create(product);
   return result;
 };
@@ -36,7 +36,7 @@ const deleteProductFromDB = async (id: string) => {
 };
 
 export const ProductServices = {
-  createProductInBD,
+  createProductInDB,
   getAllProductsFromDB,
   getSingleProductFromDB,
   updateProductFromDB,

@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { orderService } from './order.service';
+import { OrderModel } from '../order.model';
 
 const createOrder = async (req: Request, res: Response) => {
   try {
@@ -22,6 +23,20 @@ const createOrder = async (req: Request, res: Response) => {
   }
 };
 
+// Calculate revenue
+
+const revenueCalculate = async () => {
+  const result = await OrderModel.aggregate([
+    {
+      $group: {
+        revenue: { $sum: '$totalPrice' },
+      },
+    },
+  ]);
+  return result;
+};
+
 export const OrderController = {
   createOrder,
+  revenueCalculate,
 };
