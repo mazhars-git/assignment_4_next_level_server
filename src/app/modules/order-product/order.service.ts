@@ -1,7 +1,7 @@
 import { OrderModel } from '../order.model';
 import { Order } from './order.interface';
 
-const placeOrderInBD = async (order: Order) => {
+const placeOrderInDB = async (order: Order) => {
   const result = await OrderModel.create(order);
   return result;
 };
@@ -17,6 +17,6 @@ const calculateRevenueFromProducts = async () => {
 };
 
 export const orderService = {
-  placeOrderInBD,
+  placeOrderInDB,
   calculateRevenueFromProducts,
 };

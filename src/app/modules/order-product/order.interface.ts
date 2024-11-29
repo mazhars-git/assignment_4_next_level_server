@@ -1,6 +1,6 @@
 export type Order = {
   email: string;
-  id: string;
+  product?: string;
   quantity: number;
   totalPrice: number;
   createdAt?: string;
