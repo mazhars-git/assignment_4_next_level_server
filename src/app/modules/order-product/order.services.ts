@@ -5,18 +5,25 @@ const placeOrderInDB = async (order: Order) => {
   const result = await OrderModel.create(order);
   return result;
 };
-const calculateRevenueFromProducts = async () => {
+const calculateRevenue = async () => {
   const result = await OrderModel.aggregate([
     {
       $group: {
+        _id: 'null',
         revenue: { $sum: '$totalPrice' },
+      },
+    },
+    {
+      $project: {
+        totalRevenue: '$revenue',
+        _id: 0,
       },
     },
   ]);
   return result;
 };
 
-export const orderService = {
+export const orderServices = {
   placeOrderInDB,
-  calculateRevenueFromProducts,
+  calculateRevenue,
 };

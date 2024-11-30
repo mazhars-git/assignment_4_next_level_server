@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import { orderService } from './order.service';
+import { orderServices } from './order.services';
 
 const placeOrder = async (req: Request, res: Response) => {
   const { email, quantity, totalPrice, product } = req.body;
   try {
-    const order = await orderService.placeOrderInDB({
+    const order = await orderServices.placeOrderInDB({
       email,
       quantity,
       totalPrice,
@@ -23,38 +23,17 @@ const placeOrder = async (req: Request, res: Response) => {
   }
 };
 
-// const createOrder = async (req: Request, res: Response) => {
-//   try {
-//     const orderId = req.body;
-//     const newOrder = await orderService.placeOrderInBD(orderId);
-
-//     res.status(201).json({
-//       status: true,
-//       message: 'Order placed successfully',
-//       data: {
-//         newOrder,
-//       },
-//     });
-//   } catch (err) {
-//     res.status(500).json({
-//       status: false,
-//       message: 'order placed unsuccessfully',
-//       error: err,
-//     });
-//   }
-// };
-
 // Calculate revenue
 
-const revenueCalculate = async () => {
+const totalRevenue = async () => {
   try {
-    const result = await orderService.calculateRevenueFromProducts();
+    const result = await orderServices.calculateRevenue();
   } catch (err) {
     console.log(err);
   }
 };
 
 export const OrderController = {
-  revenueCalculate,
+  totalRevenue,
   placeOrder,
 };
