@@ -15,7 +15,7 @@ const createProduct = async (req: Request, res: Response) => {
       message: 'Product created successfully',
       data: result,
     });
-  } catch (err: any) {
+  } catch (err) {
     res.status(500).json({
       status: false,
       message: err.message || 'something went wrong',
@@ -35,7 +35,7 @@ const getAllProducts = async (req: Request, res: Response) => {
       message: 'Products retrieved successfully',
       data: result,
     });
-  } catch (err: any) {
+  } catch (err) {
     res.status(500).json({
       status: false,
       message: err.message || 'something went wrong',
