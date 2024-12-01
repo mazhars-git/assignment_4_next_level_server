@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { orderServices } from './order.services';
 import { ProductServices } from '../stationary-shop/product.service';
 
-const placeOrder = async (req: Request, res: Response) => {
+const placeOrder = async (req: Request, res: Response): Promise<any> => {
   try {
     const { email, quantity, totalPrice, product } = req.body;
     // check product stock
@@ -60,7 +60,7 @@ const totalRevenue = async (req: Request, res: Response) => {
       message: 'calculated successfully',
       data: result,
     });
-  } catch (err) {
+  } catch (err: any) {
     res.status(500).json({
       status: false,
       message: 'something went wrong',

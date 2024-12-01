@@ -16,7 +16,7 @@ app.use('/api/products', ProductRoutes);
 app.use('/api/orders', OrderRoutes);
 
 const getController = (req: Request, res: Response) => {
-  res.send('Hello world');
+  res.send('Welcome to stationary shop database..');
 };
 
 app.get('/', getController);
