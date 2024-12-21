@@ -27,28 +27,28 @@ Here I implemented CRUD operation:
 - I created a programme to get a specific Stationary Product from database using GET method.
 
 * To check a specific product hit this link using GET method:
-  https://assignment-2-next-level.vercel.app/api/products/productId
+  https://assignment-2-next-level.vercel.app/api/products/:productId
 
 ## 04
 
 - I created a programme to update product using PUT method.
 
 * To update a specific product hit this link using PUT method:
-  https://assignment-2-next-level.vercel.app/api/products/porductId
+  https://assignment-2-next-level.vercel.app/api/products/:porductId
 
 ## 05
 
 - I created another programme to delete a product from database using DELETE method.
 
 * To delete a specific product hit this link using DELETE method:
-  https://assignment-2-next-level.vercel.app/api/products/porductId
+  https://assignment-2-next-level.vercel.app/api/products/:porductId
 
 ## 06
 
 - Then I created a programme to order a product using POST method.
 
 * To order a specific product hit this link using POST method:
-  https://assignment-2-next-level.vercel.app/api/orders/porductId
+  https://assignment-2-next-level.vercel.app/api/orders
 
 ## 07
 
