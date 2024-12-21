@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { orderServices } from './order.services';
+import { orderServices } from './order.service';
 import { ProductServices } from '../stationary-shop/product.service';
 
 const placeOrder = async (req: Request, res: Response): Promise<any> => {

@@ -10,10 +10,8 @@ const createProductInDB = async (product: Product) => {
 };
 
 // get all products from database
-const getAllProductsFromDB = async (query: Record<string, unknown>) => {
-  // const result = await ProductModel.find();
-  // return result;
 
+const getAllProductsFromDB = async (query: Record<string, unknown>) => {
   const productQuery = new QueryBuilder(ProductModel.find(), query).search(
     productSearchableFields,
   );
@@ -41,7 +39,7 @@ const updateProductFromDB = async (id: string, productData: object) => {
 // delete product
 
 const deleteProductFromDB = async (id: string) => {
-  const result = await ProductModel.deleteOne({ id });
+  const result = await ProductModel.findByIdAndDelete(id);
   return result;
 };
 
