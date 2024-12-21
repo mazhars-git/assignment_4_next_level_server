@@ -24,6 +24,7 @@ const updateProductFromDB = async (id: string, productData: object) => {
   const result = await ProductModel.findByIdAndUpdate(
     { _id: id },
     { $set: productData },
+    { new: true },
   );
   return result;
 };
