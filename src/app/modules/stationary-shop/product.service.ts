@@ -1,4 +1,4 @@
-import { ProductModel } from '../product.model';
+import { ProductModel } from './product.model';
 import { Product } from './product.interface';
 
 // create product into database

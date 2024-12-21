@@ -1,7 +1,7 @@
-import { OrderModel } from '../order.model';
-import { Order } from './order.interface';
+import { OrderModel } from './order.model';
+import { TOrder } from './order.interface';
 
-const placeOrderInDB = async (order: Order) => {
+const placeOrderInDB = async (order: TOrder) => {
   const result = await OrderModel.create(order);
   return result;
 };

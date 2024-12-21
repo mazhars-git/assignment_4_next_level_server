@@ -1,17 +1,16 @@
+export type TCategory =
+  | 'Writing'
+  | 'Office Supplies'
+  | 'Art Supplies'
+  | 'Educational'
+  | 'Technology';
+
 export type Product = {
-  id?: string;
   name: string;
-  brand: 'Pilot' | 'Moleskine' | 'Faber-Castell';
+  brand: string;
   price: number;
-  category:
-    | 'Writing'
-    | 'Office Supplies'
-    | 'Art Supplies'
-    | 'Educational'
-    | 'Technology';
+  category: TCategory;
   description: string;
   quantity: number;
   inStock: boolean;
-  createdAt?: string;
-  updatedAt?: string;
 };
