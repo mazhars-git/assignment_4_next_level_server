@@ -1,7 +1,8 @@
 import cors from 'cors';
 import express, { Application, Request, Response } from 'express';
-import { ProductRoutes } from './app/modules/stationary-shop/product.route';
-import { OrderRoutes } from './app/modules/order-product/order.route';
+import { ProductRoutes } from './app/modules/product/product.route';
+import { OrderRoutes } from './app/modules/order/order.route';
+import { UserRoutes } from './app/modules/user/user.route';
 
 const app: Application = express();
 
@@ -12,6 +13,7 @@ app.use(cors());
 
 // application routes
 app.use('/api/products', ProductRoutes);
+app.use('/api/users', UserRoutes);
 
 app.use('/api/orders', OrderRoutes);
 

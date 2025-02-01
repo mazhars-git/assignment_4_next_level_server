@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { orderServices } from './order.service';
-import { ProductServices } from '../stationary-shop/product.service';
+import { ProductServices } from '../product/product.service';
 
 const placeOrder = async (req: Request, res: Response): Promise<any> => {
   try {
