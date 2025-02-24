@@ -1,14 +1,15 @@
 import { Request, Response } from 'express';
 import { UserServices } from './user.service';
+import catchAsync from '../../utils/catchAsync';
 
-const createUser = async (req: Request, res: Response) => {
+const registerUser = catchAsync(async (req: Request, res: Response) => {
   try {
     const { user: userData } = req.body;
-    const result = await UserServices.createUserIntoDB(userData);
 
+    const result = await UserServices.registerUserIntoDB(userData);
     res.status(200).json({
       success: true,
-      message: 'User created successfully',
+      message: 'User registered successfully',
       data: result,
     });
   } catch (err: any) {
@@ -19,8 +20,8 @@ const createUser = async (req: Request, res: Response) => {
       stack: err.stack,
     });
   }
-};
+});
 
 export const UserControllers = {
-  createUser,
+  registerUser,
 };
