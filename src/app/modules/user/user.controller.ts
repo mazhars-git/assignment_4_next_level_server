@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import { UserServices } from './user.service';
 import catchAsync from '../../utils/catchAsync';
+import sendResponse from '../../utils/sendResponse';
+import httpStatus from 'http-status';
 
 const registerUser = catchAsync(async (req: Request, res: Response) => {
   try {
@@ -22,6 +24,17 @@ const registerUser = catchAsync(async (req: Request, res: Response) => {
   }
 });
 
+const loginUser = catchAsync(async (req, res) => {
+  const data = await UserServices.loginUser(req.body);
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.ACCEPTED,
+    message: 'Logged in Successfully',
+    data,
+  });
+});
+
 export const UserControllers = {
   registerUser,
+  loginUser,
 };

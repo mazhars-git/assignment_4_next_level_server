@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
 import { model, Schema } from 'mongoose';
-import { TUser, UserModel } from './user.interface';
+import TUserModel, { IUser, IUserMethods } from './user.interface';
 import { USER_ROLE } from './user.constant';
 import config from '../../config';
+import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
-const userSchema = new Schema<TUser, UserModel>(
+const userSchema = new Schema<IUser, TUserModel, IUserMethods>(
   {
     name: { type: String, required: true, trim: true },
     email: {
@@ -14,6 +15,7 @@ const userSchema = new Schema<TUser, UserModel>(
       unique: true,
       trim: true,
     },
+    id: { type: String, required: false },
     password: {
       type: String,
       required: true,
@@ -30,9 +32,9 @@ const userSchema = new Schema<TUser, UserModel>(
   },
 );
 
+// hashing password and save into DB
 userSchema.pre('save', async function (next) {
   const user = this;
-  // hashing password and save into DB
   user.password = await bcrypt.hash(
     user.password,
     Number(config.bcrypt_salt_rounds),
@@ -52,6 +54,19 @@ userSchema.statics.isPasswordMatched = async function (
   hashedPassword,
 ) {
   return await bcrypt.compare(plainTextPassword, hashedPassword);
+};
+
+// Generate JWT token
+
+userSchema.methods.generateToken = function () {
+  return jwt.sign(
+    {
+      email: this.email,
+      role: this.role,
+    },
+    config.jwt_access_secret as string,
+    { expiresIn: config.jwt_access_expires_in },
+  );
 };
 
 export const User = model<TUser, UserModel>('User', userSchema);
