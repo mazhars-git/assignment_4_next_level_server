@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
-import { Model } from 'mongoose';
+import { Document, Model } from 'mongoose';
 import { USER_ROLE } from './user.constant';
 
-export interface TUser {
+export interface IUser extends Document {
   name: string;
   email: string;
   password: string;
@@ -11,10 +11,18 @@ export interface TUser {
   updatedAt: Date;
 }
 
-export interface UserModel extends Model<TUser> {
-  isUserExistsByEmail(email: string): Promise<TUser>;
-  isPasswordMatched(
-    plainTextPassword: string,
-    hashedPassword: string,
-  ): Promise<boolean>;
+export interface IUserMethods {
+  comparePassword(userPassword: string): Promise<boolean>;
+  generateToken(): string;
 }
+
+// export interface UserModel extends Model<TUser> {
+//   isPasswordMatched(
+//     plainTextPassword: string,
+//     hashedPassword: string,
+//   ): Promise<boolean>;
+// }
+
+type TUserModel = Model<IUser, {}, IUserMethods>;
+
+export default TUserModel;

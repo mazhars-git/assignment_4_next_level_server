@@ -8,7 +8,7 @@ import config from '../../config';
 const loginUser = async (payLoad: TLoginUser) => {
   // checking if the user is exist
 
-  const user = await User.isUserExistsByEmail(payLoad.email);
+  const user = await User.isUserExistsByCustomId(payLoad.id);
   console.log(user);
 
   if (!user) {
@@ -21,7 +21,7 @@ const loginUser = async (payLoad: TLoginUser) => {
   }
 
   const jwtPayload = {
-    userEmail: user,
+    userId: user,
     role: user.role,
   };
 
