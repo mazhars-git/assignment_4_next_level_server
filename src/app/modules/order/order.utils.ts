@@ -11,4 +11,16 @@ shurjopay.config(
   config.sp.sp_return_url!,
 );
 
-shurjopay.makePayment();
+const makePayment = async (paymentPayload: any) => {
+  return new Promise((resolve, reject) => {
+    shurjopay.makePayment(
+      paymentPayload,
+      (response) => resolve(response),
+      (error) => reject(error),
+    );
+  });
+};
+
+export const orderUtils = {
+  makePayment,
+};

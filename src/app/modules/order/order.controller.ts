@@ -4,6 +4,7 @@ import { ProductServices } from '../product/product.service';
 
 const placeOrder = async (req: Request, res: Response): Promise<any> => {
   try {
+    const user = req.body;
     const { email, quantity, totalPrice, product } = req.body;
     // check product stock
     const item = await ProductServices.getSingleProductFromDB(product);
@@ -29,12 +30,15 @@ const placeOrder = async (req: Request, res: Response): Promise<any> => {
     await item.save();
 
     // place order
-    const order = await orderServices.placeOrderInDB({
-      email,
-      quantity,
+    const order = await orderServices.placeOrderInDB(
+      // email,
+      // quantity,
       totalPrice,
-      product,
-    });
+      // product,
+      user,
+      req.body,
+      req.ip,
+    );
     res.status(201).json({
       message: 'Order created successfully',
       status: true,

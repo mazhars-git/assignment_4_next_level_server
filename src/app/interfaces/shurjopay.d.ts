@@ -7,6 +7,8 @@ declare module 'shurjopay' {
       merchant_key_prefix: string,
       return_url: string,
     ): void;
+
+    makePayment(checkout_params, checkout_callback, error_handler): void;
   }
   export default Shurjopay;
 }
