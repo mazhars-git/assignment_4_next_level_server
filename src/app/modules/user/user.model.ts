@@ -3,7 +3,6 @@ import { model, Schema } from 'mongoose';
 import TUserModel, { IUser, IUserMethods } from './user.interface';
 import { USER_ROLE } from './user.constant';
 import config from '../../config';
-import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
 const userSchema = new Schema<IUser, TUserModel, IUserMethods>(
@@ -49,6 +48,10 @@ userSchema.post('save', function (doc, next) {
   next();
 });
 
+userSchema.statics.isUserExistsByEmail = async function (email: string) {
+  return await User.findOne({ email }).select('+password');
+};
+
 userSchema.statics.isPasswordMatched = async function (
   plainTextPassword,
   hashedPassword,
@@ -56,17 +59,4 @@ userSchema.statics.isPasswordMatched = async function (
   return await bcrypt.compare(plainTextPassword, hashedPassword);
 };
 
-// Generate JWT token
-
-userSchema.methods.generateToken = function () {
-  return jwt.sign(
-    {
-      email: this.email,
-      role: this.role,
-    },
-    config.jwt_access_secret as string,
-    { expiresIn: config.jwt_access_expires_in },
-  );
-};
-
-export const User = model<TUser, UserModel>('User', userSchema);
+export const User = model<IUser, TUserModel>('User', userSchema);
