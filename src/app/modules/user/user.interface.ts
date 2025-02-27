@@ -1,28 +1,20 @@
 /* eslint-disable no-unused-vars */
-import { Document, Model } from 'mongoose';
+import { Model } from 'mongoose';
 import { USER_ROLE } from './user.constant';
 
-export interface IUser extends Document {
+export interface IUser {
   name: string;
   email: string;
   password: string;
-  role: USER_ROLE;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export interface IUserMethods {
-  comparePassword(userPassword: string): Promise<boolean>;
-  generateToken(): string;
+  role: 'admin' | 'user';
 }
 
 export interface UserModel extends Model<IUser> {
+  isUserExistsByEmail(email: string): Promise<IUser>;
   isPasswordMatched(
     plainTextPassword: string,
     hashedPassword: string,
   ): Promise<boolean>;
 }
 
-type TUserModel = Model<IUser, {}, IUserMethods>;
-
-export default TUserModel;
+export type TUserRole = keyof typeof USER_ROLE;

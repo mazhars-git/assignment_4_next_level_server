@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
 import { model, Schema } from 'mongoose';
-import TUserModel, { IUser, IUserMethods } from './user.interface';
-import { USER_ROLE } from './user.constant';
 import config from '../../config';
 import bcrypt from 'bcrypt';
+import { IUser, UserModel } from './user.interface';
 
-const userSchema = new Schema<IUser, TUserModel, IUserMethods>(
+const userSchema = new Schema<IUser>(
   {
     name: { type: String, required: true, trim: true },
     email: {
@@ -14,16 +13,15 @@ const userSchema = new Schema<IUser, TUserModel, IUserMethods>(
       unique: true,
       trim: true,
     },
-    id: { type: String, required: false },
     password: {
       type: String,
       required: true,
-      select: false,
+      select: 0,
     },
     role: {
       type: String,
-      enum: Object.values(USER_ROLE),
-      default: USER_ROLE.user,
+      enum: ['admin', 'user'],
+      default: 'user',
     },
   },
   {
@@ -34,6 +32,8 @@ const userSchema = new Schema<IUser, TUserModel, IUserMethods>(
 // hashing password and save into DB
 userSchema.pre('save', async function (next) {
   const user = this;
+
+  //hashing password
   user.password = await bcrypt.hash(
     user.password,
     Number(config.bcrypt_salt_rounds),
@@ -59,4 +59,4 @@ userSchema.statics.isPasswordMatched = async function (
   return await bcrypt.compare(plainTextPassword, hashedPassword);
 };
 
-export const User = model<IUser, TUserModel>('User', userSchema);
+export const User = model<IUser, UserModel>('User', userSchema);
